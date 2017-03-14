@@ -43,6 +43,7 @@ return [
 
     'disks' => [
 
+      //se crea un nuevo disco 
       'imgNoticias' => [
           'driver' => 'local',
           'root' => public_path('imgNoticias'),

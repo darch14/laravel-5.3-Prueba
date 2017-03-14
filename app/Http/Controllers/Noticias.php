@@ -90,7 +90,9 @@ class Noticias extends Controller
      */
     public function edit($id)
     {
-        //
+        //SE RETORNA LA VISTA HOME
+        $noticia = Noticia::find($id);
+        return view('home')->with(['edit' => true, 'noticia' => $noticia]);
     }
 
     /**
@@ -102,7 +104,34 @@ class Noticias extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // VALIDACION DE DATOS DE NOTICIAS
+        $this->validate($request, [
+          'titulo' => 'required',
+          'descripcion' => 'required'
+        ]);
+
+        //GUARDAR DATOS DE NOTICIAS
+        $noticia = Noticia::find($id);
+        $noticia->titulo = $request->titulo;
+        $noticia->descripcion = $request->descripcion;
+
+        //GUARDAR IMAGEN
+        $img = $request->file('urlImg');
+
+        $file_route = time().'_'.$img->getClientOriginalName();
+
+        Storage::disk('imgNoticias')->put($file_route, file_get_contents( $img->getRealPath() ) );
+        Storage::disk('imgNoticias')->delete($request->img);
+
+        $noticia->urlImg = $file_route;
+
+        /*GUARDAR EN LA BASE DE DATOS
+        SE PREGUNTA SI SE GUARDO CON EXITO O NO Y SE ENVIA UN MENSAJE*/
+        if($noticia->save()){
+          return redirect('home')->with('msjExito', 'Datos guardados');
+        }else {
+          return back()->with('msjError', 'Error al guardar los datos');
+        }
     }
 
     /**

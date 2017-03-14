@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Noticia;
+
 class HomeController extends Controller
 {
     /**
@@ -23,6 +25,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        //TRAER LOS DATOS DE LA BASE DE DATOS
+        $noticias = Noticia::all();
+        //MOSTRARLOS EN VERTOR
+        return view('home')->with(['noticias' => $noticias]);
     }
 }
