@@ -144,6 +144,6 @@ class Noticias extends Controller
     {
         //ELIMINAR LA NOTICIA
         Noticia::destroy($id);
-        return back();
+        return back()->with('msjEliminar', 'Datos Eliminados');
     }
 }

@@ -7,6 +7,9 @@
 @if(session()->has('msjError'))
   <div class="alert alert-danger" role="alert">{{ session('msjError') }}</div>
 @endif
+@if(session()->has('msjEliminar'))
+  <div class="alert alert-danger" role="alert">{{ session('msjEliminar') }}</div>
+@endif
 
                         <!-- ROLE='FORM', METODO='POST', ACCION = FUNCION()-->
 <form class="form-horizontal" role="form" method="post" action="{{ url('noticias') }}" enctype="multipart/form-data">
