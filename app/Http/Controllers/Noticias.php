@@ -142,6 +142,8 @@ class Noticias extends Controller
      */
     public function destroy($id)
     {
-        //
+        //ELIMINAR LA NOTICIA
+        Noticia::destroy($id);
+        return back();
     }
 }
